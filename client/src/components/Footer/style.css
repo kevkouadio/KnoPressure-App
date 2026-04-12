@@ -1,17 +1,16 @@
 .footer {
-   min-height: 30px; 
-   position: relative;
+  margin-top: auto;
+  padding: 1.25rem var(--space-page);
+  text-align: center;
+  background: linear-gradient(180deg, rgba(13, 92, 99, 0.06) 0%, rgba(13, 92, 99, 0.12) 100%);
+  border-top: 1px solid rgba(13, 92, 99, 0.12);
 }
 
 .footer span {
-  position: absolute;
-  bottom: 0;
-  left: 10px;
-  right: -10px;
-  padding: 3px; 
-  /* margin-left: 12px;
-  margin-right: 0px;   */
-  background-color:plum;
-  text-align: center;
-  font-size: 15px;
+  position: static;
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  padding: 0;
+  background: transparent;
 }

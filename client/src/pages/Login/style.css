@@ -1,42 +1,23 @@
-body {
-    background-color: plum;
+.login-sign-Card .LoginForm input {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: #f7fcfd;
 }
 
-.login-sign-Card {
-    background-color: plum;
-    width: 18rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1%;
-    border: none;
+.login-sign-Card .LoginForm input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 92, 99, 0.15);
 }
 
-.svg-inline--fa {
-    position: absolute;
-    right: 10px;
-    top: 53%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: blue;
-  }
- 
-.login-sign-link {
-    /* width: 25%;  */
-    margin-left: auto;
-    margin-right: auto;
-    text-decoration: underline;
+.login-sign-Card label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
 }
 
-a {
-    color: rgb(70, 70, 216);
-}
-@media all and (min-width: 480px) {
-    .Login {
-        padding: 60px 0;
-    }
-
-    .Login form {
-        margin: 0 auto;
-        max-width: 320px;
-    }
+.login-sign-Card .form-group {
+  margin-bottom: 1rem;
 }

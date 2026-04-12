@@ -12,6 +12,15 @@ export default class AuthService {
     }
   };
 
+  googleLogin = async (token) => {
+    try {
+      this.setToken(token);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   getProfile = () => {
     try {
       return decode(this.getToken());

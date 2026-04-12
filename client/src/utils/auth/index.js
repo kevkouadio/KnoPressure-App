@@ -13,8 +13,12 @@ export const AuthProvider = ({ value, ...rest }) => {
   );
 
   const login = async (email, password, username) => {
-    await authService
-      .login(email, password, username);
+    await authService.login(email, password, username);
+    return setUser(authService.getProfile());
+  };
+
+  const googleLogin = async (token) => {
+    await authService.googleLogin(token);
     return setUser(authService.getProfile());
   };
 
@@ -26,7 +30,8 @@ export const AuthProvider = ({ value, ...rest }) => {
         user,
         isLoggedIn,
         login,
-        logout
+        googleLogin,
+        logout,
       }}
       {...rest}
     />

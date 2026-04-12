@@ -5,7 +5,6 @@ import { Input, FormBtn } from "../../components/Form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Form from "../Form/Form";
-import Row from "../Row";
 // import "./style.css";
 
 function SearchForm() {
@@ -124,66 +123,100 @@ function SearchForm() {
     setFormObject({ ...formObject, [name]: value })
   };
 
-  //set background color of average according to bp standard reading
-  function getBackgroundColor(systolic) {
-    if (systolic === 0) {
-      return 'plum';
-    } else if (systolic < 120) {
-      return 'green';
-    } else if (systolic >= 120 && systolic <= 129) {
-      return 'yellow';
-    } else if (systolic >= 130 && systolic <= 139) {
-      return 'orange';
-    } else {
-      return 'red';
+  /**
+   * BP zone colors match standard chart bands (AHA-style):
+   * Normal / Elevated / Stage 1 / Stage 2+: use the worse of systolic vs diastolic.
+   */
+  function getTierClass(systolic, diastolic) {
+    if (!systolic || !diastolic || systolic === 0 || diastolic === 0) {
+      return "bp-stat-card--empty";
     }
+    let s = 0;
+    if (systolic < 120) s = 0;
+    else if (systolic <= 129) s = 1;
+    else if (systolic <= 139) s = 2;
+    else s = 3;
+
+    let d = 0;
+    if (diastolic < 80) d = 0;
+    else if (diastolic <= 89) d = 1;
+    else if (diastolic <= 99) d = 2;
+    else d = 3;
+
+    const worst = Math.max(s, d);
+    const tiers = [
+      "bp-stat-card--normal",
+      "bp-stat-card--elevated",
+      "bp-stat-card--stage1",
+      "bp-stat-card--high"
+    ];
+    return tiers[worst];
   }
-  
-  const sevenDaybackgroundColor = getBackgroundColor(sevenDayAverage.systolic);
-  const monthBackgroundColor = getBackgroundColor(monthAverage.systolic);
+
+  const sevenDayTier = getTierClass(
+    sevenDayAverage.systolic,
+    sevenDayAverage.diastolic
+  );
+  const monthTier = getTierClass(monthAverage.systolic, monthAverage.diastolic);
 
   return (
-    <Col size="md-6" id="emptycol" >
-      <p>Kno pressure?! Let's find out where your numbers are today</p>
+    <Col size="md-6" id="emptycol" className="search-form-panel home-panel home-panel--entry">
+      <p className="search-form-lead">Log today&apos;s reading</p>
       <Form>
-        <p>What are your numbers today? Let's find out if its normal</p>
-        <Row>
-          <div className="col-sm-4">
+        <p className="search-form-hint">Enter systolic and diastolic (mmHg)</p>
+        <div className="home-bp-inputs-row">
+          <div className="home-bp-field">
             <Input
+              id="systolic"
               onChange={handleInputChange}
               name="systolic"
               placeholder="Systolic (required)"
             />
-            <label id="systolic-label">Systolic/top number</label>
+            <label id="systolic-label" htmlFor="systolic">
+              Systolic / top
+            </label>
           </div>
-          <div className="col-sm-4">
+          <div className="home-bp-field">
             <Input
+              id="diastolic"
               onChange={handleInputChange}
               name="diastolic"
               placeholder="Diastolic (required)"
             />
-            <label id="diastolic-label" for="Diastolic">Diastolic/bottom number</label>
+            <label id="diastolic-label" htmlFor="diastolic">
+              Diastolic / bottom
+            </label>
           </div>
-        </Row>
-        <FormBtn
-          disabled={!(formObject.systolic && formObject.diastolic)}
-          onClick={handleFormSubmit}
-        >
-          Submit
-        </FormBtn>
-        <div className="card" style={{ backgroundColor: sevenDaybackgroundColor, color: 'white',textShadow: "-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black", marginLeft: "29%", marginRight: "29%", padding: "15px" }}>
-          {sevenDayAverage.systolic && sevenDayAverage.diastolic ? (
-            <h6> Your 7 Day Average: {sevenDayAverage.systolic} / {sevenDayAverage.diastolic} mmHg</h6>
-          ) : (<h6> No data available. Please add readings to see 7 day averages.</h6>
-          )}
         </div>
-        <br />
-        <div className="card" style={{ backgroundColor: monthBackgroundColor, color: 'white', textShadow: "-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black", marginLeft: "29%", marginRight: "29%", padding: "15px" }}>
-          {monthAverage.systolic && monthAverage.diastolic ? (
-            <h6> Your Monthly average: {monthAverage.systolic} / {monthAverage.diastolic} mmHg</h6>
-          ) : (
-            <h6> No data available. Please add readings to see monthly averages.</h6>
-          )}
+        <div className="home-submit-wrap">
+          <FormBtn
+            disabled={!(formObject.systolic && formObject.diastolic)}
+            onClick={handleFormSubmit}
+          >
+            Submit
+          </FormBtn>
+        </div>
+        <div className="home-stat-grid">
+          <div className={`bp-stat-card ${sevenDayTier}`}>
+            {sevenDayAverage.systolic && sevenDayAverage.diastolic ? (
+              <h6>
+                7-day average: {sevenDayAverage.systolic} /{" "}
+                {sevenDayAverage.diastolic} mmHg
+              </h6>
+            ) : (
+              <h6>Add readings to see your 7-day average.</h6>
+            )}
+          </div>
+          <div className={`bp-stat-card ${monthTier}`}>
+            {monthAverage.systolic && monthAverage.diastolic ? (
+              <h6>
+                Monthly average: {monthAverage.systolic} / {monthAverage.diastolic}{" "}
+                mmHg
+              </h6>
+            ) : (
+              <h6>Add readings to see your monthly average.</h6>
+            )}
+          </div>
         </div>
         <ToastContainer />
       </Form>

@@ -1,38 +1,23 @@
-/* .MuiTableCell-alignLeft {
-    text-align: center !important;
-} */
+.MuiPaper-root,
+.MuiTableCell-head {
+  background-color: #f4fbfc !important;
+}
 
-.MuiPaper-root,.MuiTableCell-head {
-    background-color: lavender !important;
+.MuiTableHead-root .MuiTableCell-head {
+  background-color: #0d5c63 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
 }
 
 .MuiTableCell-head {
-    font-weight: bold !important;
+  font-weight: 600 !important;
 }
 
 .MuiTableCell-root {
-    text-align: center !important;
-    align-items: center !important;
+  text-align: center !important;
+  align-items: center !important;
 }
 
-/* .MuiTableCell-paddingNone {
-    align-items: center !important;
-    text-align: center !important;
-    padding-left: auto !important;
-    padding-right: auto !important;
-  }
-
-.MuiTableCell-paddingNone > div {
-    text-align: center !important;
-  }
-
-  .MuiIconButton-colorInherit {
-    color: inherit;
-    padding-left: auto !important;
-    padding-right: auto !important;
-    text-align: center !important;
-} */
-
 .MuiTable-root tr td:last-child div {
-    justify-content: center;
-  }
+  justify-content: center;
+}

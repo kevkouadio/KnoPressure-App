@@ -8,6 +8,8 @@ const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const bPDataRouter = require("./routes/bPData");
 const errorMiddleware = require("./routes/errorMiddleware");
+const passport = require("./config/googleAuth");
+const session = require("express-session");
 
 const PORT = process.env.PORT || 3001;
 
@@ -19,6 +21,16 @@ if (process.env.NODE_ENV !== "production") {
 // Setting up express to use json and set it to req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize passport and session
+app.use(session({
+  secret: process.env.SERVER_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === "production" }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 initDb();
 

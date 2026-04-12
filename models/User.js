@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: true,
     trim: true,
   },
   email: {
@@ -20,7 +19,22 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: function() {
+      return !this.googleId; // Password is only required if not using Google auth
+    },
+  },
+  googleId: {
+    type: String,
+    sparse: true,
+    unique: true,
+  },
+  firstName: {
+    type: String,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    trim: true,
   },
   createdAt: {
     type: Date,
@@ -32,8 +46,8 @@ const UserSchema = new Schema({
 UserSchema.pre("save", async function () {
   const user = this;
 
-  // Break out if the password hasn't changed
-  if (!user.isModified("password")) {
+  // Break out if the password hasn't changed or if using Google auth
+  if (!user.isModified("password") || user.googleId) {
     return;
   }
 
@@ -45,8 +59,8 @@ UserSchema.pre("save", async function () {
 });
 
 UserSchema.methods.verifyPassword = async function (plainTextPassword) {
+  if (!this.password) return false;
   return bcrypt.compare(plainTextPassword, this.password);
-
 };
 
 const User = mongoose.model("User", UserSchema);

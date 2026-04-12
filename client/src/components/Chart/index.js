@@ -81,11 +81,13 @@ function Chart() {
   };
 
   return (
-    <div>
+    <div className="chart-page">
       {BP.length > 0 ? (
-        <ZingChart data={myData}></ZingChart>
+        <ZingChart data={myData} />
       ) : (
-        <h3 style={{ marginTop: "17%", marginBottom: "17%"}}>No data available. Please add readings to see the chart.</h3>
+        <p className="chart-empty">
+          No readings yet. Add measurements on the home page to see your chart.
+        </p>
       )}
     </div>
   );

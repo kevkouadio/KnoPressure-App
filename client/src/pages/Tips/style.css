@@ -1,52 +1,36 @@
-.tips-page {
-    font-family: 'Roboto', sans-serif;
-    padding: 20px;
-  }
-  
-  .header h1 {
-    text-align: center;
-    color: #3a7ca5;
-  }
-  
-  .hero h2 {
-    color: #1b6f93;
-  }
-  
-  .tips-cards {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  /* .card {
-    background: #f0f9ff;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-  } */
-  
-  .chatbot-button img {
-    width: 70px;  
-    height: 70px;
-    position: fixed;
-    bottom: 40px;
-    right: 20px;
-  }
-  
-  .chatbot-window {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    width: 300px;
-    height: 400px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    overflow-y: auto;
-  }
-  
-  .chatbot-button {
-    background-color: transparent;
-    border: none; 
-  }
+.tips-page .tips-emergency {
+  background: linear-gradient(90deg, #fff5f5 0%, #ffe4e4 100%);
+  border: 1px solid #f5c2c7;
+  border-left: 4px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  text-align: left;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.tips-page .tips-emergency strong {
+  color: var(--color-danger);
+}
+
+.tips-page-title {
+  text-align: center;
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  color: var(--color-primary);
+}
+
+.tips-page-lead {
+  text-align: center;
+  color: var(--color-text-muted);
+  max-width: 36rem;
+  margin: 0 auto 1.5rem;
+  font-size: 1rem;
+}
+
+.tips-card-row {
+  justify-content: center;
+  gap: 0.5rem;
+}

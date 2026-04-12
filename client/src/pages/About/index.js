@@ -4,21 +4,24 @@ import Container from "../../components/Container";
 import Row from "../../components/Row";
 import Col from "../../components/Col";
 import Footer from "../../components/Footer";
+import { publicUrl } from "../../utils/publicUrl";
 import "./aboutstyle.css";
 
 function About() {
     return (
-        <div>
+        <div className="about-page">
             <Navbar />
-            <Container style={{ marginTop: 30 }}>
+            <Container style={{ marginTop: 24 }}>
                 <Row>
                     <Col size="md-12">
-                        <h1 className="display-5">About Us</h1>
-                        <hr />
+                        <div className="about-hero">
+                            <h1>About KnoPressure</h1>
+                            <hr />
+                        </div>
                     </Col>
-                    <Col size="md-10">
-                        <div className="card border border-info">
-                            <div className="card-body">
+                    <Col size="12" className="about-intro-col">
+                        <div className="about-intro">
+                            <div className="card-body p-0">
                                 <p className="card-text">Welcome all to our KnoPressure app. Our App was built so that you can input your information in order to determine your blood pressure.
                                     High or Low blood pressure is such a deadly silent killer in our society today and many of us don't even know we have it.
                                     High blood pressure, also called hypertension, is when the pressure in your blood vessels is unusually high. It can be serious if not treated.
@@ -31,49 +34,47 @@ function About() {
                             </div>
                         </div>
                     </Col>
-                    <Col size="md-6">
-                        <div className="card-body">
-                            <h5>OUR TEAM</h5>
-                        </div>
-                    </Col>
-                    <Row>
-                        <div className="card images">
-                            <img src={"./assets/images/kevin.JPG"} className="card-img-top custom-img" alt="Kevin" />
+                    <Col size="md-12">
+                        <h2 className="team-heading">Our team</h2>
+                        <div className="team-grid">
+                        <div className="card team-card">
+                            <img src={publicUrl("/assets/images/kevin.JPG")} className="card-img-top custom-img" alt="Kevin" />
                             <div className="card-body">
                                 <p className="card-text">Kouassi Kevin Kouadio </p>
                                 <a href="https://www.linkedin.com/in/kouassi-kouadio-b731a071/?locale=en_US" target="_blank" rel="noopener noreferrer">
-                                    <img className="linkedin-icon" src={"./assets/images/linkedin-icon.png"} alt="LinkedIn" />
+                                    <img className="linkedin-icon" src={publicUrl("/assets/images/linkedin-icon.png")} alt="LinkedIn" />
                                 </a>
                             </div>
                         </div>
-                        <div className="card images">
-                            <img src={"./assets/images/Wendy1.jpg"} className="card-img-top custom-img" alt="Wendy" />
+                        <div className="card team-card">
+                            <img src={publicUrl("/assets/images/Wendy1.jpg")} className="card-img-top custom-img" alt="Wendy" />
                             <div className="card-body">
                                 <p className="card-text">Wendy Hintzen</p>
                                 <a href="https://www.linkedin.com/in/wendy-hintzen-999b7583/" target="_blank" rel="noopener noreferrer">
-                                    <img className="linkedin-icon" src={"./assets/images/linkedin-icon.png"} alt="LinkedIn" />
+                                    <img className="linkedin-icon" src={publicUrl("/assets/images/linkedin-icon.png")} alt="LinkedIn" />
                                 </a>
                             </div>
                         </div>
-                        <div className="card images">
-                            <img src={"./assets/images/Tashena.jpg"} className="card-img-top custom-img" alt="Tashena" />
+                        <div className="card team-card">
+                            <img src={publicUrl("/assets/images/Tashena.jpg")} className="card-img-top custom-img" alt="Tashena" />
                             <div className="card-body">
                                 <p className="card-text">Tashena 'Sheena' Malloy </p>
                                 <a href="https://www.linkedin.com/in/tashenamalloy/" target="_blank" rel="noopener noreferrer">
-                                    <img className="linkedin-icon" src={"./assets/images/linkedin-icon.png"} alt="LinkedIn" />
+                                    <img className="linkedin-icon" src={publicUrl("/assets/images/linkedin-icon.png")} alt="LinkedIn" />
                                 </a>
                             </div>
                         </div>
-                        <div className="card images">
-                            <img src={"./assets/images/Miguel1.png"} className="card-img-top custom-img" alt="Miguel" />
+                        <div className="card team-card">
+                            <img src={publicUrl("/assets/images/Miguel1.png")} className="card-img-top custom-img" alt="Miguel" />
                             <div className="card-body">
                                 <p className="card-text">Miguel Lopez</p>
                                 <a href="https://www.linkedin.com/in/miguel--a--lopez/" target="_blank" rel="noopener noreferrer">
-                                    <img className="linkedin-icon" src={"./assets/images/linkedin-icon.png"} alt="LinkedIn" />
+                                    <img className="linkedin-icon" src={publicUrl("/assets/images/linkedin-icon.png")} alt="LinkedIn" />
                                 </a>
                             </div>
                         </div>
-                    </Row>
+                        </div>
+                    </Col>
                 </Row>
             </Container>
             <Footer />

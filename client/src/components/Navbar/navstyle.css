@@ -1,4 +1,31 @@
-nav.navbar.navbar-default {
-  margin-bottom: 0;
+.navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--color-primary) !important;
 }
 
+.navbar .nav-link {
+  font-weight: 500;
+  color: var(--color-text) !important;
+  border-radius: var(--radius-sm);
+  margin: 0 0.15rem;
+  padding: 0.5rem 0.85rem !important;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar .nav-link:hover {
+  background-color: rgba(13, 92, 99, 0.08);
+  color: var(--color-primary) !important;
+}
+
+.navbar .nav-link.active {
+  color: var(--color-primary) !important;
+  background-color: rgba(13, 92, 99, 0.12);
+}
+
+.navbar .btn.nav-link {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}

@@ -126,14 +126,19 @@ function Table() {
 
     return (
         <MaterialTable
-            title="Your blood pressure readings"
+            title=""
             columns={columns}
             data={BP}
             options={{
                 actionsColumnIndex: -1,
-                rowStyle: {
-                    backgroundColor: 'plum',
-                    color: 'white',
+                rowStyle: (rowData, index) => ({
+                    backgroundColor: index % 2 === 0 ? "#f4fbfc" : "#ffffff",
+                    color: "#1a2e35",
+                }),
+                headerStyle: {
+                    backgroundColor: "#0d5c63",
+                    color: "#ffffff",
+                    fontWeight: 600,
                 },
                 filtering: true,
                 sorting: true,

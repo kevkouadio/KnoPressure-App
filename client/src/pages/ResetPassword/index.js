@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Form, Input } from "../../components/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -42,25 +42,32 @@ const ResetPassword = () => {
     };
 
     return (
+        <div className="auth-page">
         <div className="card login-sign-Card">
             <h2>Reset Password</h2>
             <Form onSubmit={handleSubmit}>
                 {!isPasswordReset && (
                     <>
                         <div className="mb-3">
-                            <label className="form-label">New Password</label>
-                            <Input
-                                type={showPassword ? "text" : "password"}
-                                className="form-control"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <FontAwesomeIcon
-                                id="icon-resetPassword"
-                                icon={showPassword ? faEye : faEyeSlash}
-                                onClick={() => setShowPassword(!showPassword)}
-                            />
+                            <label className="form-label" htmlFor="reset-password-field">New Password</label>
+                            <div className="input-with-toggle">
+                                <Input
+                                    id="reset-password-field"
+                                    type={showPassword ? "text" : "password"}
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="password-toggle-btn"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+                                </button>
+                            </div>
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Confirm New Password</label>
@@ -78,8 +85,16 @@ const ResetPassword = () => {
                     {isLoading ? 'Loading...' : 'Reset Password'}
                 </button>
             </Form>
+            {!isPasswordReset && (
+                <p className="reset-password-login-link">
+                    <Link to="/login" className="login-sign-link">
+                        Go to login
+                    </Link>
+                </p>
+            )}
             {isLoading && <Spinner />} {/* Display Spinner while loading */}
-            {message && <p className="mt-3">{message}</p>}
+            {message && <p className="auth-feedback">{message}</p>}
+        </div>
         </div>
     );
 };

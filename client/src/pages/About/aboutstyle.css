@@ -1,99 +1,123 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    list-style: none;
-  }
-
-/* Set the spacing between the links */
-.navbar ul {
-  padding-right: 15px;
-  margin-right: 15px;
-  /* font-size:  15px; */
-} 
-
-.bg-light {
-  background-color: lavender !important;
+.about-page .about-hero {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-/* Change the color of links on hover*/
-a:hover  { 
-  background:rgb(247, 164, 247);
-  color:black;
-  transition: .10s;
-} 
-  /* About Us header text */
-.display-5 {
-    margin: 5px;
-    padding-top: 5px;
-    /* background-color:purple; */
-    background-color: rgb(190, 115, 219);
-    color: #ffffff;
-    text-align: center;
-    height: 60px;
-    width: 100%;
+.about-page .about-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.1rem);
+  color: var(--color-primary);
 }
 
-hr {
-    border-top: 1px solid black;
-    margin-top: 5px;
-    margin-bottom: 10px;
+.about-page .about-hero hr {
+  border: none;
+  height: 1px;
+  background: var(--color-border);
+  margin: 0 auto;
+  max-width: 12rem;
 }
 
-  /* Welcome Text  */
-.col-md-10 {
-    padding-top: 10px;
-    padding-bottom: 15px;
-    margin: auto;
-    font-size: large;
-    background-color: rgb(190, 115, 219);
+/* Same width as team row: 4 cards × 15rem + 3 gaps (borders line up with outer photos) */
+.about-page {
+  --about-team-card: 15rem;
+  --about-team-gap: 1.25rem;
+  --about-team-row-width: calc(
+    4 * var(--about-team-card) + 3 * var(--about-team-gap)
+  );
 }
 
-    /* Our Team text */
-.col-md-6 {
-  position: relative;
-    /* margin:5px; */
-    /* margin-left:2px ; */
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-top: 15px;
-    padding-bottom: 5px;
-    background-color: #eb34a5;
-    text-align: center;
-    /* border-radius: 15px; */
+.about-page .about-intro-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.row {
-    padding-top: 15px;
-    margin: auto;
-    justify-content: center;
-}
-
-.images {
-  width: 15rem; 
-  height: auto;
-  border: 2px solid black;
-  border-radius: solid 4px;
-  margin-bottom: 10px;
-  margin-top: 15px;
-}
-  
-.card-img-top {
-  max-width: 100%;
-  height: 200px;
-}
-
-.card-body {
-  background-color: rgb(235, 204, 235);
-}
-
-.custom-img {
+.about-page .about-intro {
   width: 100%;
-  object-fit: cover; 
+  max-width: min(100%, var(--about-team-row-width));
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 210, 0.25),
+    rgba(255, 240, 248, 0.9)
+  );
+  border: 1px solid rgba(200, 120, 160, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
 }
 
-.linkedin-icon {
-  height: 40px;
-  width: 40px;
+.about-page .about-intro p {
+  text-align: left;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.about-page .team-heading {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin: 2rem 0 1rem;
+}
+
+.about-page .team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--about-team-gap);
+  justify-content: center;
+  max-width: min(100%, var(--about-team-row-width));
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1rem;
+}
+
+.about-page .team-card {
+  width: var(--about-team-card);
+  flex: 0 0 var(--about-team-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  background: var(--color-surface);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.about-page .team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.about-page .team-card .card-img-top {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about-page .team-card .card-body {
+  background: #f7fcfd;
+  padding: 1rem;
+  text-align: center;
+}
+
+.about-page .team-card .card-text {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.about-page .linkedin-icon {
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+}
+
+.about-page .linkedin-icon:hover {
+  opacity: 1;
 }

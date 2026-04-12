@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import './style.css'
+import React from "react";
+import "./style.css";
 
-function Spinner() {
-    return (
-        <div className="loading-container">
-            <div className="spinner-border" role="status">
-                <div class="loader"></div>
-            </div>
-        </div>
-    );
+function Spinner({ label = "Loading…" }) {
+  return (
+    <div
+      className="spinner-root"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div className="spinner__track" aria-hidden="true">
+        <div className="spinner__ring" />
+        <div className="spinner__ring spinner__ring--delayed" />
+      </div>
+      <span className="spinner__sr-only">{label}</span>
+    </div>
+  );
 }
 
 export default Spinner;

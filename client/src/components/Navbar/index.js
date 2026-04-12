@@ -50,9 +50,9 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/chart"
+                    to="/Chart"
                     className={
-                      location.pathname === "/chart" ? "nav-link active" : "nav-link"
+                      location.pathname === "/Chart" ? "nav-link active" : "nav-link"
                     }
                   >
                     Chart

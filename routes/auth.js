@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const User = require("../models/User"); // Import your user model
+const passport = require("../config/googleAuth");
 //const router = express.Router();
 
 const router = express.Router();
@@ -79,5 +80,34 @@ router.post("/resetPassword", async (req, res) => {
     res.status(400).send("Invalid or expired Link.");
   }
 });
+
+const clientBase = process.env.CLIENT_URL || "http://localhost:3000";
+
+// Google Auth (paths must match callbackURL in config/googleAuth.js)
+router.get(
+  "/api/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+  "/api/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: `${clientBase}/#/login?error=google`,
+  }),
+  (req, res) => {
+    const user = req.user;
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+        username: user.username || user.firstName || user.email.split("@")[0],
+      },
+      process.env.SERVER_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    res.redirect(`${clientBase}/#/login?token=${token}`);
+  }
+);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Input } from '../../components/Form';
 import { ToastContainer, toast } from "react-toastify";
@@ -35,6 +36,7 @@ const ForgotPassword = () => {
     };
 
     return (
+        <div className="auth-page">
         <div className="card login-sign-Card">
             <h2>Forgot Password</h2>
             <form onSubmit={handleSubmit}>
@@ -57,8 +59,14 @@ const ForgotPassword = () => {
                 </button>
                 <ToastContainer />
             </form>
+            <p className="forgot-password-login-link">
+                <Link to="/login" className="login-sign-link">
+                    Go to login
+                </Link>
+            </p>
             {isLoading && <Spinner/>} {/* Display Spinner while loading */}
-            {message && <p className="mt-3">{message}</p>}
+            {message && <p className="auth-feedback">{message}</p>}
+        </div>
         </div>
     );
 };
