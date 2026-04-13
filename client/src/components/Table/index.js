@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
+import TablePagination from "@material-ui/core/TablePagination";
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import * as XLSX from 'xlsx';
 import API from "../../utils/BP";
 import { CloudDownload } from '@material-ui/icons';
 import "./style.css"
+
+/** Maps legacy material-table handlers to MUI 4.12+ TablePagination API (avoids prop-type warnings). */
+function MaterialTablePagination(props) {
+  const { onChangePage, onChangeRowsPerPage, icons: _icons, ...rest } = props;
+  return (
+    <TablePagination
+      {...rest}
+      onPageChange={onChangePage}
+      onRowsPerPageChange={onChangeRowsPerPage}
+    />
+  );
+}
 
 function Table() {
     const [BP, setBP] = useState([])
@@ -129,6 +142,9 @@ function Table() {
             title=""
             columns={columns}
             data={BP}
+            components={{
+                Pagination: MaterialTablePagination,
+            }}
             options={{
                 actionsColumnIndex: -1,
                 rowStyle: (rowData, index) => ({
