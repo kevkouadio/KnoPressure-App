@@ -61,8 +61,11 @@ if (hasGoogleCreds) {
     )
   );
 } else {
+  const missing = [];
+  if (!process.env.GOOGLE_CLIENT_ID) missing.push("GOOGLE_CLIENT_ID");
+  if (!process.env.GOOGLE_CLIENT_SECRET) missing.push("GOOGLE_CLIENT_SECRET");
   console.warn(
-    "[auth] Google OAuth disabled: set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET."
+    `[auth] Google OAuth disabled: add these in Render → Environment → ${missing.join(", ")} (then redeploy).`
   );
 }
 
