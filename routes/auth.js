@@ -83,31 +83,43 @@ router.post("/resetPassword", async (req, res) => {
 
 const clientBase = process.env.CLIENT_URL || "http://localhost:3000";
 
+function googleOAuthDisabled(_req, res) {
+  res.status(503).json({
+    error: "Google sign-in is not configured on this server.",
+  });
+}
+
 // Google Auth (paths must match callbackURL in config/googleAuth.js)
-router.get(
-  "/api/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+if (passport.isGoogleOAuthConfigured()) {
+  router.get(
+    "/api/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+  );
 
-router.get(
-  "/api/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: `${clientBase}/#/login?error=google`,
-  }),
-  (req, res) => {
-    const user = req.user;
-    const token = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-        username: user.username || user.firstName || user.email.split("@")[0],
-      },
-      process.env.SERVER_SECRET,
-      { expiresIn: "24h" }
-    );
+  router.get(
+    "/api/auth/google/callback",
+    passport.authenticate("google", {
+      failureRedirect: `${clientBase}/#/login?error=google`,
+    }),
+    (req, res) => {
+      const user = req.user;
+      const token = jwt.sign(
+        {
+          id: user._id,
+          email: user.email,
+          username:
+            user.username || user.firstName || user.email.split("@")[0],
+        },
+        process.env.SERVER_SECRET,
+        { expiresIn: "24h" }
+      );
 
-    res.redirect(`${clientBase}/#/login?token=${token}`);
-  }
-);
+      res.redirect(`${clientBase}/#/login?token=${token}`);
+    }
+  );
+} else {
+  router.get("/api/auth/google", googleOAuthDisabled);
+  router.get("/api/auth/google/callback", googleOAuthDisabled);
+}
 
 module.exports = router;
