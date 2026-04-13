@@ -8,14 +8,39 @@ import API from "../../utils/BP";
 import { CloudDownload } from '@material-ui/icons';
 import "./style.css"
 
-/** Maps legacy material-table handlers to MUI 4.12+ TablePagination API (avoids prop-type warnings). */
+/**
+ * Bridges material-table + MUI 4.12 TablePagination:
+ * - Outer API uses onPageChange / onRowsPerPageChange
+ * - material-table's MTablePagination (ActionsComponent) still expects onChangePage on subProps
+ */
 function MaterialTablePagination(props) {
-  const { onChangePage, onChangeRowsPerPage, icons: _icons, ...rest } = props;
+  const {
+    onChangePage,
+    onChangeRowsPerPage,
+    icons: _icons,
+    ActionsComponent,
+    ...rest
+  } = props;
+
+  const patchedActions =
+    typeof ActionsComponent === "function"
+      ? (subProps) => {
+          const Inner = ActionsComponent;
+          return (
+            <Inner
+              {...subProps}
+              onChangePage={subProps.onChangePage || subProps.onPageChange}
+            />
+          );
+        }
+      : ActionsComponent;
+
   return (
     <TablePagination
       {...rest}
       onPageChange={onChangePage}
       onRowsPerPageChange={onChangeRowsPerPage}
+      ActionsComponent={patchedActions}
     />
   );
 }

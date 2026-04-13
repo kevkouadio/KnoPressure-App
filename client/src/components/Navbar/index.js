@@ -79,10 +79,13 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  {/* Logout Button */}
-                  <Link className="btn nav-link" onClick={handleShowModal}>
+                  <button
+                    type="button"
+                    className="btn nav-link"
+                    onClick={handleShowModal}
+                  >
                     Logout
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>
